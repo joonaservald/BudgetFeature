@@ -6,4 +6,5 @@ struct BudgetOverviewData: Equatable {
 	let remaining: Decimal
 	let progress: Double
 	let isOverBudget: Bool
+	let currencyCode: String
 }

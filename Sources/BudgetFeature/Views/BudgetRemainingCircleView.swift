@@ -4,6 +4,7 @@ struct BudgetRemainingCircleView: View {
 	let remaining: Decimal
 	let progress: Double
 	let isOverBudget: Bool
+	let currencyCode: String
 	
 	private let circleSize: CGFloat = 140
 	private let lineWidth: CGFloat = 16
@@ -41,14 +42,21 @@ struct BudgetRemainingCircleView: View {
 	
 	private var centerContentView: some View {
 		VStack(spacing: 2) {
-			Text("\(abs(remaining).formatted2Decimals())")
+			Text("\(abs(remaining).formatted(.currency(code: currencyCode)))")
 				.font(.system(size: 24, weight: .bold, design: .rounded))
 				.foregroundColor(isOverBudget ? Color(red: 0.8, green: 0.3, blue: 0.3) : .white)
+				.lineLimit(1)
+				.allowsTightening(true)
+				.minimumScaleFactor(0.7)
+				.frame(width: 100)
 				.contentTransition(.numericText())
 			
-			Text(isOverBudget ? "OVER BUDGET" : "REMAINING")
+			Text(isOverBudget ? "budget.circle.over" : "budget.circle.remaining", bundle: .module)
 				.font(.system(size: 11, weight: .bold))
 				.foregroundColor(.gray)
+				.lineLimit(1)
+				.minimumScaleFactor(0.7)
+				.frame(width: 100)
 				.tracking(1)
 		}
 	}

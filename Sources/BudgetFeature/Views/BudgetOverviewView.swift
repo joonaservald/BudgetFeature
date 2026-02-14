@@ -22,7 +22,7 @@ struct BudgetContentView: View {
 
 	var body: some View {
 		VStack(spacing: 24) {
-			Text("Monthly overview")
+			Text("budget.overview.title", bundle: .module)
 				.font(.system(size: 20, weight: .bold, design: .rounded))
 				.foregroundColor(.white)
 				.frame(maxWidth: .infinity)
@@ -34,7 +34,6 @@ struct BudgetContentView: View {
 	}
 }
 
-//TODO: Create a solution for asset, color and localization handling
 enum AppColors {
 	static let background = Color(red: 0.1, green: 0.1, blue: 0.12)
 	static let cardBackground = Color(red: 0.15, green: 0.15, blue: 0.18)

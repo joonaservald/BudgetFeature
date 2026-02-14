@@ -16,12 +16,15 @@ final class BudgetOverviewViewModel {
 	func loadBudgetData() async {
 		guard let data = try? await budgetService.fetchMonthlyBudget() else { return }
 		let remainingBudget = data.totalBudget - data.totalSpent
+		let progress: Double = data.totalBudget.isZero
+		? 0 : NSDecimalNumber(decimal: data.totalSpent / data.totalBudget).doubleValue
 		viewData = BudgetOverviewData(
 			totalBudget: data.totalBudget,
 			totalSpent: data.totalSpent,
 			remaining: remainingBudget,
-			progress: NSDecimalNumber(decimal: data.totalSpent / data.totalBudget).doubleValue,
-			isOverBudget: data.totalSpent > data.totalBudget
+			progress: progress,
+			isOverBudget: data.totalSpent > data.totalBudget,
+			currencyCode: data.currencyCode
 		)
 	}
 }

@@ -8,22 +8,23 @@ struct BudgetOverviewCardView: View {
 			BudgetRemainingCircleView(
 				remaining: data.remaining,
 				progress: data.progress,
-				isOverBudget: data.isOverBudget
+				isOverBudget: data.isOverBudget,
+				currencyCode: data.currencyCode
 			)
 			.frame(maxWidth: .infinity)
 			
 			VStack(alignment: .leading, spacing: 30) {
 				statRow(
 					icon: "chart.bar.fill",
-					label: "BUDGET",
-					value: "€\(data.totalBudget.formatted2Decimals())",
+					label: "title.budget",
+					value: data.totalBudget.formatted(.currency(code: data.currencyCode)),
 					iconColor: .gray
 				)
 				
 				statRow(
 					icon: "flame.fill",
-					label: "SPENT",
-					value: "€\(data.totalSpent.formatted2Decimals())",
+					label: "title.spent",
+					value: data.totalSpent.formatted(.currency(code: data.currencyCode)),
 					iconColor: Color(red: 0.5, green: 0.5, blue: 1.0)
 				)
 			}
@@ -38,7 +39,7 @@ struct BudgetOverviewCardView: View {
 	
 	private func statRow(
 		icon: String,
-		label: String,
+		label: LocalizedStringKey,
 		value: String,
 		iconColor: Color
 	) -> some View {
@@ -49,12 +50,13 @@ struct BudgetOverviewCardView: View {
 				.frame(width: 36)
 			
 			VStack(alignment: .trailing, spacing: 2) {
-				Text(label)
+				Text(label, bundle: .module)
 					.font(.system(size: 10, weight: .semibold))
 					.foregroundColor(.gray)
 					.tracking(0.5)
 					.lineLimit(1)
 					.allowsTightening(true)
+					.minimumScaleFactor(0.8)
 					.frame(width: 85, alignment: .leading)
 					.fixedSize(horizontal: true, vertical: false)
 				
@@ -65,6 +67,7 @@ struct BudgetOverviewCardView: View {
 					.contentTransition(.numericText())
 					.lineLimit(1)
 					.allowsTightening(true)
+					.minimumScaleFactor(0.8)
 					.frame(width: 85, alignment: .leading)
 					.fixedSize(horizontal: true, vertical: false)
 			}
