@@ -75,3 +75,15 @@ struct BudgetOverviewCardView: View {
 		}
 	}
 }
+
+#Preview {
+	BudgetOverviewCardView(data: .init(
+		totalBudget: 100,
+		totalSpent: 33.3,
+		remaining: 66.7,
+		progress: 0.33,
+		isOverBudget: false,
+		currencyCode: "EUR",
+		categories: []
+	))
+}

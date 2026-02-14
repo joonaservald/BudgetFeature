@@ -1,0 +1,100 @@
+import SwiftUI
+
+struct SpendingCategoryCardView: View {
+	let category: SpendingCategoryData
+	let currencyCode: String
+	
+	var body: some View {
+		VStack(alignment: .leading, spacing: 12) {
+			topStack
+			progressBar
+			bottomStack
+		}
+		.padding(16)
+		.background(
+			RoundedRectangle(cornerRadius: 16)
+				.fill(BudgetFeatureColors.cardBackground)
+		)
+	}
+	
+	private var topStack: some View {
+		HStack {
+			Image(systemName: category.type.iconName)
+				.font(.system(size: 20))
+				.foregroundColor(category.type.accentColor)
+				.frame(width: 32)
+			
+			Text(category.type.displayName, bundle: .module)
+				.font(.system(size: 16, weight: .bold))
+				.foregroundColor(BudgetFeatureColors.primaryText)
+			
+			Spacer()
+			
+			Image(systemName: "chevron.right")
+				.font(.system(size: 14, weight: .semibold))
+				.foregroundColor(BudgetFeatureColors.secondaryText)
+		}
+	}
+	
+	private var progressBar: some View {
+		GeometryReader { geometry in
+			ZStack(alignment: .leading) {
+				Capsule()
+					.fill(BudgetFeatureColors.circleTrack)
+					.frame(height: 6)
+				
+				Capsule()
+					.fill(category.type.accentColor)
+					.frame(width: geometry.size.width * min(category.progress, 1.0), height: 6)
+			}
+		}
+		.frame(height: 6)
+	}
+	
+	private var bottomStack: some View {
+		HStack {
+			HStack(spacing: 4) {
+				Text((category.monthlySpent.formatted(.currency(code: currencyCode))))
+					.font(.system(size: 12, weight: .semibold))
+					.foregroundColor(
+						category.isOverBudget
+						? BudgetFeatureColors.overBudget
+						: BudgetFeatureColors.primaryText
+					)
+					.monospacedDigit()
+					.contentTransition(.numericText())
+				
+				Text("title.spent", bundle: .module)
+					.font(.system(size: 12, weight: .semibold))
+					.foregroundColor(BudgetFeatureColors.secondaryText)
+			}
+			
+			Spacer()
+			
+			HStack(spacing: 4) {
+				Text(category.monthlyBudget.formatted(.currency(code: currencyCode)))
+					.font(.system(size: 12, weight: .semibold))
+					.foregroundColor(BudgetFeatureColors.primaryText)
+					.monospacedDigit()
+					.contentTransition(.numericText())
+				Text("title.budget", bundle: .module)
+					.font(.system(size: 12, weight: .semibold))
+					.foregroundColor(BudgetFeatureColors.secondaryText)
+			}
+		}
+	}
+}
+
+
+#Preview {
+	SpendingCategoryCardView(
+		category: .init(
+			type: .food,
+			monthlySpent: 123.45,
+			monthlyBudget: 678.90,
+			progress: 0.18,
+			isOverBudget: false
+		),
+		currencyCode: "EUR"
+	)
+}

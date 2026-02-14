@@ -61,3 +61,12 @@ struct BudgetRemainingCircleView: View {
 		}
 	}
 }
+
+#Preview {
+	BudgetRemainingCircleView(
+		remaining: 1234.5,
+		progress: 0.4,
+		isOverBudget: false,
+		currencyCode: "EUR"
+	)
+}

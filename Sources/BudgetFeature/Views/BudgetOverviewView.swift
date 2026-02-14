@@ -20,7 +20,7 @@ struct BudgetContentView: View {
 	let data: BudgetOverviewData
 
 	var body: some View {
-		VStack(spacing: 24) {
+		VStack(spacing: 20) {
 			Text("budget.overview.title", bundle: .module)
 				.font(.system(size: 20, weight: .bold, design: .rounded))
 				.foregroundColor(BudgetFeatureColors.primaryText)
@@ -28,6 +28,13 @@ struct BudgetContentView: View {
 				.multilineTextAlignment(.center)
 
 			BudgetOverviewCardView(data: data)
+
+			ForEach(data.categories) { category in
+				SpendingCategoryCardView(
+					category: category,
+					currencyCode: data.currencyCode
+				)
+			}
 		}
 		.padding()
 	}

@@ -18,13 +18,28 @@ final class BudgetOverviewViewModel {
 		let remainingBudget = data.totalBudget - data.totalSpent
 		let progress: Double = data.totalBudget.isZero
 		? 0 : NSDecimalNumber(decimal: data.totalSpent / data.totalBudget).doubleValue
+
+		let categories = data.categories.map { category in
+			let categoryProgress: Double = category.monthlyBudget.isZero
+			? 0 : NSDecimalNumber(decimal: category.monthlySpent / category.monthlyBudget).doubleValue
+			
+			return SpendingCategoryData(
+				type: category.type,
+				monthlySpent: category.monthlySpent,
+				monthlyBudget: category.monthlyBudget,
+				progress: categoryProgress,
+				isOverBudget: category.monthlySpent > category.monthlyBudget
+			)
+		}
+
 		viewData = BudgetOverviewData(
 			totalBudget: data.totalBudget,
 			totalSpent: data.totalSpent,
 			remaining: remainingBudget,
 			progress: progress,
 			isOverBudget: data.totalSpent > data.totalBudget,
-			currencyCode: data.currencyCode
+			currencyCode: data.currencyCode,
+			categories: categories
 		)
 	}
 }

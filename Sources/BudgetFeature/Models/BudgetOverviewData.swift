@@ -7,4 +7,5 @@ struct BudgetOverviewData: Equatable {
 	let progress: Double
 	let isOverBudget: Bool
 	let currencyCode: String
+	let categories: [SpendingCategoryData]
 }
