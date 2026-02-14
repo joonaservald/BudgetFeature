@@ -18,14 +18,14 @@ struct BudgetOverviewCardView: View {
 					icon: "chart.bar.fill",
 					label: "title.budget",
 					value: data.totalBudget.formatted(.currency(code: data.currencyCode)),
-					iconColor: .gray
+					iconColor: BudgetFeatureColors.secondaryText
 				)
 				
 				statRow(
 					icon: "flame.fill",
 					label: "title.spent",
 					value: data.totalSpent.formatted(.currency(code: data.currencyCode)),
-					iconColor: Color(red: 0.5, green: 0.5, blue: 1.0)
+					iconColor: BudgetFeatureColors.accent
 				)
 			}
 		}
@@ -33,7 +33,7 @@ struct BudgetOverviewCardView: View {
 		.padding(.vertical, 36)
 		.background(
 			RoundedRectangle(cornerRadius: 20)
-				.fill(AppColors.cardBackground)
+				.fill(BudgetFeatureColors.cardBackground)
 		)
 	}
 	
@@ -52,7 +52,7 @@ struct BudgetOverviewCardView: View {
 			VStack(alignment: .trailing, spacing: 2) {
 				Text(label, bundle: .module)
 					.font(.system(size: 10, weight: .semibold))
-					.foregroundColor(.gray)
+					.foregroundColor(BudgetFeatureColors.secondaryText)
 					.tracking(0.5)
 					.lineLimit(1)
 					.allowsTightening(true)
@@ -63,7 +63,7 @@ struct BudgetOverviewCardView: View {
 				Text(value)
 					.font(.system(size: 16, weight: .semibold))
 					.monospacedDigit()
-					.foregroundColor(.white)
+					.foregroundColor(BudgetFeatureColors.primaryText)
 					.contentTransition(.numericText())
 					.lineLimit(1)
 					.allowsTightening(true)

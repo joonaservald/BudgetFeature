@@ -12,8 +12,7 @@ public struct BudgetOverviewView: View {
 		}
 		.refreshable { await viewModel.loadBudgetData() }
 		.task { await viewModel.loadBudgetData() }
-		.preferredColorScheme(.dark)
-		.background(AppColors.background.ignoresSafeArea())
+		.background(BudgetFeatureColors.background.ignoresSafeArea())
 	}
 }
 
@@ -24,7 +23,7 @@ struct BudgetContentView: View {
 		VStack(spacing: 24) {
 			Text("budget.overview.title", bundle: .module)
 				.font(.system(size: 20, weight: .bold, design: .rounded))
-				.foregroundColor(.white)
+				.foregroundColor(BudgetFeatureColors.primaryText)
 				.frame(maxWidth: .infinity)
 				.multilineTextAlignment(.center)
 
@@ -32,11 +31,6 @@ struct BudgetContentView: View {
 		}
 		.padding()
 	}
-}
-
-enum AppColors {
-	static let background = Color(red: 0.1, green: 0.1, blue: 0.12)
-	static let cardBackground = Color(red: 0.15, green: 0.15, blue: 0.18)
 }
 
 #Preview {

@@ -12,7 +12,7 @@ struct BudgetRemainingCircleView: View {
 	var body: some View {
 		ZStack {
 			Circle()
-				.stroke(Color.white.opacity(0.1), lineWidth: lineWidth)
+				.stroke(BudgetFeatureColors.circleTrack, lineWidth: lineWidth)
 				.frame(width: circleSize, height: circleSize)
 			
 			Circle()
@@ -28,8 +28,8 @@ struct BudgetRemainingCircleView: View {
 	private var progressGradient: LinearGradient {
 		LinearGradient(
 			colors: [
-				Color(red: 0.4, green: 0.4, blue: 1.0),
-				Color(red: 0.7, green: 0.5, blue: 1.0)
+				BudgetFeatureColors.progressGradientStart,
+				BudgetFeatureColors.progressGradientEnd
 			],
 			startPoint: .topLeading,
 			endPoint: .bottomTrailing
@@ -44,7 +44,7 @@ struct BudgetRemainingCircleView: View {
 		VStack(spacing: 2) {
 			Text("\(abs(remaining).formatted(.currency(code: currencyCode)))")
 				.font(.system(size: 24, weight: .bold, design: .rounded))
-				.foregroundColor(isOverBudget ? Color(red: 0.8, green: 0.3, blue: 0.3) : .white)
+				.foregroundColor(isOverBudget ? BudgetFeatureColors.overBudget : BudgetFeatureColors.primaryText)
 				.lineLimit(1)
 				.allowsTightening(true)
 				.minimumScaleFactor(0.7)
@@ -53,7 +53,7 @@ struct BudgetRemainingCircleView: View {
 			
 			Text(isOverBudget ? "budget.circle.over" : "budget.circle.remaining", bundle: .module)
 				.font(.system(size: 11, weight: .bold))
-				.foregroundColor(.gray)
+				.foregroundColor(BudgetFeatureColors.secondaryText)
 				.lineLimit(1)
 				.minimumScaleFactor(0.7)
 				.frame(width: 100)
