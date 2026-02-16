@@ -66,18 +66,7 @@ struct SpendingCategoryHeaderView: View {
 	}
 
 	private var progressBar: some View {
-		GeometryReader { geometry in
-			ZStack(alignment: .leading) {
-				Capsule()
-					.fill(BudgetFeatureColors.circleTrack)
-					.frame(height: 6)
-
-				Capsule()
-					.fill(category.type.accentColor)
-					.frame(width: geometry.size.width * min(category.progress, 1.0), height: 6)
-			}
-		}
-		.frame(height: 6)
+		ProgressBarView(progress: category.progress, tint: category.type.accentColor)
 	}
 }
 
