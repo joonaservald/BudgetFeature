@@ -165,6 +165,28 @@
           }
         }
       }
+    },
+    "title.remaining" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "REMAINING"
+          }
+        }
+      }
+    },
+    "title.over" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OVER BUDGET"
+          }
+        }
+      }
     }
   },
   "version" : "1.1"

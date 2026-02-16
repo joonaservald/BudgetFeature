@@ -24,13 +24,17 @@ struct SpendingCategoryHeaderView: View {
 			)
 	}
 
+	private var remaining: Decimal {
+		category.monthlyBudget - category.monthlySpent
+	}
+
 	private var budgetSummaryCard: some View {
 		VStack(alignment: .leading, spacing: 12) {
 			progressBar
 
 			HStack {
 				HStack(spacing: 4) {
-					Text(category.monthlySpent.formatted(.currency(code: currencyCode)))
+					Text(abs(remaining).formatted(.currency(code: currencyCode)))
 						.font(.system(size: 12, weight: .semibold))
 						.foregroundStyle(
 							category.isOverBudget
@@ -39,9 +43,12 @@ struct SpendingCategoryHeaderView: View {
 						)
 						.monospacedDigit()
 
-					Text("title.spent", bundle: .module)
-						.font(.system(size: 12, weight: .semibold))
-						.foregroundStyle(BudgetFeatureColors.secondaryText)
+					Text(
+						category.isOverBudget ? "title.over" : "title.remaining",
+						bundle: .module
+					)
+					.font(.system(size: 12, weight: .semibold))
+					.foregroundStyle(BudgetFeatureColors.secondaryText)
 				}
 
 				Spacer()
