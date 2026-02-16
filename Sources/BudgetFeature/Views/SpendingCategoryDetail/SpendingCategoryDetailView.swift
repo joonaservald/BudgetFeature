@@ -25,13 +25,13 @@ struct SpendingCategoryDetailView: View {
 		VStack(alignment: .leading, spacing: 0) {
 			Text("category.detail.transactions", bundle: .module)
 				.font(.system(size: 16, weight: .bold))
-				.foregroundColor(BudgetFeatureColors.primaryText)
+				.foregroundStyle(BudgetFeatureColors.primaryText)
 				.padding(.bottom, 12)
 
 			if category.transactions.isEmpty {
 				Text("category.detail.no.transactions", bundle: .module)
 					.font(.system(size: 14))
-					.foregroundColor(BudgetFeatureColors.secondaryText)
+					.foregroundStyle(BudgetFeatureColors.secondaryText)
 					.frame(maxWidth: .infinity)
 					.padding(.vertical, 20)
 			} else {

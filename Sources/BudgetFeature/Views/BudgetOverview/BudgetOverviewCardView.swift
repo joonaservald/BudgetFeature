@@ -46,13 +46,13 @@ struct BudgetOverviewCardView: View {
 		HStack(spacing: 12) {
 			Image(systemName: icon)
 				.font(.system(size: 24))
-				.foregroundColor(iconColor)
+				.foregroundStyle(iconColor)
 				.frame(width: 36)
 			
 			VStack(alignment: .trailing, spacing: 2) {
 				Text(label, bundle: .module)
 					.font(.system(size: 10, weight: .semibold))
-					.foregroundColor(BudgetFeatureColors.secondaryText)
+					.foregroundStyle(BudgetFeatureColors.secondaryText)
 					.tracking(0.5)
 					.lineLimit(1)
 					.allowsTightening(true)
@@ -63,7 +63,7 @@ struct BudgetOverviewCardView: View {
 				Text(value)
 					.font(.system(size: 16, weight: .semibold))
 					.monospacedDigit()
-					.foregroundColor(BudgetFeatureColors.primaryText)
+					.foregroundStyle(BudgetFeatureColors.primaryText)
 					.contentTransition(.numericText())
 					.lineLimit(1)
 					.allowsTightening(true)

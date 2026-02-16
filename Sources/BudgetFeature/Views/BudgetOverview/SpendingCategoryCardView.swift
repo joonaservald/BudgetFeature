@@ -21,18 +21,18 @@ struct SpendingCategoryCardView: View {
 		HStack {
 			Image(systemName: category.type.iconName)
 				.font(.system(size: 20))
-				.foregroundColor(category.type.accentColor)
+				.foregroundStyle(category.type.accentColor)
 				.frame(width: 32)
 			
 			Text(category.type.displayName, bundle: .module)
 				.font(.system(size: 16, weight: .bold))
-				.foregroundColor(BudgetFeatureColors.primaryText)
+				.foregroundStyle(BudgetFeatureColors.primaryText)
 			
 			Spacer()
 			
 			Image(systemName: "chevron.right")
 				.font(.system(size: 14, weight: .semibold))
-				.foregroundColor(BudgetFeatureColors.secondaryText)
+				.foregroundStyle(BudgetFeatureColors.secondaryText)
 		}
 	}
 	
@@ -45,7 +45,7 @@ struct SpendingCategoryCardView: View {
 			HStack(spacing: 4) {
 				Text((category.monthlySpent.formatted(.currency(code: currencyCode))))
 					.font(.system(size: 12, weight: .semibold))
-					.foregroundColor(
+					.foregroundStyle(
 						category.isOverBudget
 						? BudgetFeatureColors.error
 						: BudgetFeatureColors.primaryText
@@ -55,7 +55,7 @@ struct SpendingCategoryCardView: View {
 				
 				Text("title.spent", bundle: .module)
 					.font(.system(size: 12, weight: .semibold))
-					.foregroundColor(BudgetFeatureColors.secondaryText)
+					.foregroundStyle(BudgetFeatureColors.secondaryText)
 			}
 			
 			Spacer()
@@ -63,12 +63,12 @@ struct SpendingCategoryCardView: View {
 			HStack(spacing: 4) {
 				Text(category.monthlyBudget.formatted(.currency(code: currencyCode)))
 					.font(.system(size: 12, weight: .semibold))
-					.foregroundColor(BudgetFeatureColors.primaryText)
+					.foregroundStyle(BudgetFeatureColors.primaryText)
 					.monospacedDigit()
 					.contentTransition(.numericText())
 				Text("title.budget", bundle: .module)
 					.font(.system(size: 12, weight: .semibold))
-					.foregroundColor(BudgetFeatureColors.secondaryText)
+					.foregroundStyle(BudgetFeatureColors.secondaryText)
 			}
 		}
 	}

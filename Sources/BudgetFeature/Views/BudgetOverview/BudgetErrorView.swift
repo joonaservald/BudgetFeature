@@ -7,15 +7,15 @@ struct BudgetErrorView: View {
 		VStack(spacing: 16) {
 			Image(systemName: "exclamationmark.triangle")
 				.font(.system(size: 40))
-				.foregroundColor(BudgetFeatureColors.secondaryText)
+				.foregroundStyle(BudgetFeatureColors.secondaryText)
 
 			Text("error.title", bundle: .module)
 				.font(.system(size: 18, weight: .semibold))
-				.foregroundColor(BudgetFeatureColors.primaryText)
+				.foregroundStyle(BudgetFeatureColors.primaryText)
 
 			Text("error.message", bundle: .module)
 				.font(.system(size: 14))
-				.foregroundColor(BudgetFeatureColors.secondaryText)
+				.foregroundStyle(BudgetFeatureColors.secondaryText)
 				.multilineTextAlignment(.center)
 
 			Button {
@@ -23,7 +23,7 @@ struct BudgetErrorView: View {
 			} label: {
 				Text("error.retry", bundle: .module)
 					.font(.system(size: 16, weight: .semibold))
-					.foregroundColor(.white)
+					.foregroundStyle(.white)
 					.padding(.horizontal, 32)
 					.padding(.vertical, 12)
 					.background(

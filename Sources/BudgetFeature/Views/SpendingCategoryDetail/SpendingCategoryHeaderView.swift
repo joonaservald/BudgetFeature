@@ -15,7 +15,7 @@ struct SpendingCategoryHeaderView: View {
 	private var categoryIcon: some View {
 		Image(systemName: category.type.iconName)
 			.font(.system(size: 20))
-			.foregroundColor(category.type.accentColor)
+			.foregroundStyle(category.type.accentColor)
 			.frame(width: 60)
 			.frame(maxHeight: .infinity)
 			.background(
@@ -32,7 +32,7 @@ struct SpendingCategoryHeaderView: View {
 				HStack(spacing: 4) {
 					Text(category.monthlySpent.formatted(.currency(code: currencyCode)))
 						.font(.system(size: 12, weight: .semibold))
-						.foregroundColor(
+						.foregroundStyle(
 							category.isOverBudget
 							? BudgetFeatureColors.error
 							: BudgetFeatureColors.primaryText
@@ -41,7 +41,7 @@ struct SpendingCategoryHeaderView: View {
 
 					Text("title.spent", bundle: .module)
 						.font(.system(size: 12, weight: .semibold))
-						.foregroundColor(BudgetFeatureColors.secondaryText)
+						.foregroundStyle(BudgetFeatureColors.secondaryText)
 				}
 
 				Spacer()
@@ -49,12 +49,12 @@ struct SpendingCategoryHeaderView: View {
 				HStack(spacing: 4) {
 					Text(category.monthlyBudget.formatted(.currency(code: currencyCode)))
 						.font(.system(size: 12, weight: .semibold))
-						.foregroundColor(BudgetFeatureColors.primaryText)
+						.foregroundStyle(BudgetFeatureColors.primaryText)
 						.monospacedDigit()
 
 					Text("title.budget", bundle: .module)
 						.font(.system(size: 12, weight: .semibold))
-						.foregroundColor(BudgetFeatureColors.secondaryText)
+						.foregroundStyle(BudgetFeatureColors.secondaryText)
 				}
 			}
 		}

@@ -38,7 +38,7 @@ struct BudgetContentView: View {
 		VStack(spacing: 20) {
 			Text("budget.overview.title", bundle: .module)
 				.font(.system(size: 20, weight: .bold, design: .rounded))
-				.foregroundColor(BudgetFeatureColors.primaryText)
+				.foregroundStyle(BudgetFeatureColors.primaryText)
 				.frame(maxWidth: .infinity)
 				.multilineTextAlignment(.center)
 
