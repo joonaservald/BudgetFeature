@@ -23,10 +23,19 @@ struct SpendingCategoryDetailView: View {
 
 	private var transactionsCard: some View {
 		VStack(alignment: .leading, spacing: 0) {
-			Text("category.detail.transactions", bundle: .module)
-				.font(.system(size: 16, weight: .bold))
-				.foregroundStyle(BudgetFeatureColors.primaryText)
-				.padding(.bottom, 12)
+			HStack {
+				Text("category.detail.transactions", bundle: .module)
+					.font(.system(size: 16, weight: .bold))
+					.foregroundStyle(BudgetFeatureColors.primaryText)
+
+				Spacer()
+
+				Text((-category.monthlySpent).formatted(.currency(code: currencyCode)))
+					.font(.system(size: 16, weight: .bold))
+					.foregroundStyle(BudgetFeatureColors.primaryText)
+					.monospacedDigit()
+			}
+			.padding(.bottom, 12)
 
 			if category.transactions.isEmpty {
 				Text("category.detail.no.transactions", bundle: .module)
