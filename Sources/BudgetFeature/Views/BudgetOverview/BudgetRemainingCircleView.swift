@@ -44,7 +44,7 @@ struct BudgetRemainingCircleView: View {
 		VStack(spacing: 2) {
 			Text("\(abs(remaining).formatted(.currency(code: currencyCode)))")
 				.font(.system(size: 24, weight: .bold, design: .rounded))
-				.foregroundColor(isOverBudget ? BudgetFeatureColors.overBudget : BudgetFeatureColors.primaryText)
+				.foregroundColor(isOverBudget ? BudgetFeatureColors.error : BudgetFeatureColors.primaryText)
 				.lineLimit(1)
 				.allowsTightening(true)
 				.minimumScaleFactor(0.7)

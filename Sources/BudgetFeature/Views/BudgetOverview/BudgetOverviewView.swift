@@ -3,16 +3,20 @@ import SwiftUI
 public struct BudgetOverviewView: View {
 	@State private var viewModel = BudgetOverviewViewModel()
 
+	public init() {}
+
 	public var body: some View {
-		ScrollView {
-			if let displayData = viewModel.viewData {
-				BudgetContentView(data: displayData)
-				.animation(.easeInOut, value: displayData)
+		NavigationStack {
+			ScrollView {
+				if let displayData = viewModel.viewData {
+					BudgetContentView(data: displayData)
+					.animation(.easeInOut, value: displayData)
+				}
 			}
+			.refreshable { await viewModel.didPullToRefresh() }
+			.task { await viewModel.loadInitialBudgetData() }
+			.background(BudgetFeatureColors.background.ignoresSafeArea())
 		}
-		.refreshable { await viewModel.loadBudgetData() }
-		.task { await viewModel.loadBudgetData() }
-		.background(BudgetFeatureColors.background.ignoresSafeArea())
 	}
 }
 
@@ -30,10 +34,18 @@ struct BudgetContentView: View {
 			BudgetOverviewCardView(data: data)
 
 			ForEach(data.categories) { category in
-				SpendingCategoryCardView(
-					category: category,
-					currencyCode: data.currencyCode
-				)
+				NavigationLink {
+					SpendingCategoryDetailView(
+						category: category,
+						currencyCode: data.currencyCode
+					)
+				} label: {
+					SpendingCategoryCardView(
+						category: category,
+						currencyCode: data.currencyCode
+					)
+				}
+				.buttonStyle(.plain)
 			}
 		}
 		.padding()

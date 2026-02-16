@@ -13,22 +13,29 @@ final class BudgetOverviewViewModel {
 		self.budgetService = budgetService
 	}
 
-	func loadBudgetData() async {
+	func loadInitialBudgetData() async {
+		guard viewData == nil else { return }
+		await fetchBudgetData()
+	}
+
+	func didPullToRefresh() async {
+		await fetchBudgetData()
+	}
+
+	private func fetchBudgetData() async {
 		guard let data = try? await budgetService.fetchMonthlyBudget() else { return }
 		let remainingBudget = data.totalBudget - data.totalSpent
 		let progress: Double = data.totalBudget.isZero
 		? 0 : NSDecimalNumber(decimal: data.totalSpent / data.totalBudget).doubleValue
 
-		let categories = data.categories.map { category in
-			let categoryProgress: Double = category.monthlyBudget.isZero
-			? 0 : NSDecimalNumber(decimal: category.monthlySpent / category.monthlyBudget).doubleValue
-			
+		let categories = data.categories.map { [weak self] category in
 			return SpendingCategoryData(
 				type: category.type,
 				monthlySpent: category.monthlySpent,
 				monthlyBudget: category.monthlyBudget,
-				progress: categoryProgress,
-				isOverBudget: category.monthlySpent > category.monthlyBudget
+				progress: self?.categoryProgress(for: category) ?? 0,
+				isOverBudget: category.monthlySpent > category.monthlyBudget,
+				transactions: category.transactions
 			)
 		}
 
@@ -41,5 +48,10 @@ final class BudgetOverviewViewModel {
 			currencyCode: data.currencyCode,
 			categories: categories
 		)
+	}
+
+	private func categoryProgress(for category: SpendingCategoryResponse) -> Double {
+		category.monthlyBudget.isZero
+		? 0 : NSDecimalNumber(decimal: category.monthlySpent / category.monthlyBudget).doubleValue
 	}
 }

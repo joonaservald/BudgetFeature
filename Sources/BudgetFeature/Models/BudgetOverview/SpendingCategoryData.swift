@@ -9,4 +9,5 @@ struct SpendingCategoryData: Equatable, Identifiable {
 	let monthlyBudget: Decimal
 	let progress: Double
 	let isOverBudget: Bool
+	let transactions: [TransactionResponse]
 }

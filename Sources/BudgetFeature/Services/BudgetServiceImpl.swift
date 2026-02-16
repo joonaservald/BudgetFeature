@@ -2,24 +2,31 @@ import Foundation
 
 final class BudgetServiceImpl {
 	private let euroCurrencyIdentifier = "EUR"
-	private let mockCategoryTypes: [SpendingCategoryType] = [.food, .health, .home, .transport, .other]
+	
 }
 
 extension BudgetServiceImpl: BudgetService {
 
 	func fetchMonthlyBudget() async throws -> BudgetOverviewResponse {
+		
+		// Mock 1 second timeout as it was requested in the home task description
 		try await Task.sleep(for: .milliseconds(1000))
-
+		
 		// Create mock categories
-		let categories = mockCategoryTypes.map { type in
-			let budget = Decimal(Double.random(in: 100...800)).rounded(2)
-			let spent = Decimal(Double.random(in: 0...NSDecimalNumber(decimal: budget + 100).doubleValue)).rounded(2)
-			let transactions = generateRandomTransactions(totalSpent: spent)
-			return SpendingCategoryResponse(
-				type: type,
-				monthlyBudget: budget,
-				monthlySpent: spent,
-				transactions: transactions
+		var categories: [SpendingCategoryResponse] = []
+		let mockCategoryTypes: [SpendingCategoryType] = [.food, .health, .home, .transport, .other]
+		mockCategoryTypes.forEach { [weak self] category in
+			guard let self = self else { return }
+			let transactions = self.generateRandomTransactions(category: category)
+			let categorySpent = transactions.reduce(Decimal.zero) { $0 + $1.amount}
+			let categoryBudget = Decimal(Double.random(in: 100...1000))
+			categories.append(
+				SpendingCategoryResponse(
+					type: category,
+					monthlyBudget: categoryBudget,
+					monthlySpent: categorySpent,
+					transactions: transactions
+				)
 			)
 		}
 
@@ -34,33 +41,31 @@ extension BudgetServiceImpl: BudgetService {
 			categories: categories
 		)
 	}
-
-	private func generateRandomTransactions(totalSpent: Decimal) -> [TransactionResponse] {
-		let count = Int.random(in: 0...10)
-		let totalDouble = NSDecimalNumber(decimal: totalSpent).doubleValue
-		var remaining = totalDouble
+	
+	private func generateRandomTransactions(category: SpendingCategoryType) -> [TransactionResponse] {
+		let transactionCount = Int.random(in: 0...10)
 		var transactions: [TransactionResponse] = []
-
-		for i in 0..<count {
-			let amount: Decimal
-			if i == count - 1 {
-				amount = Decimal(remaining).rounded(2)
-			} else {
-				let portion = Double.random(in: 0.05...0.1) * remaining
-				amount = Decimal(portion).rounded(2)
-				remaining -= NSDecimalNumber(decimal: amount).doubleValue
-			}
-
-			let daysAgo = Int.random(in: 0...27)
+		for _ in 0..<transactionCount {
+			let amount = Decimal(Double.random(in: 0.9...100))
+			let daysAgo = Int.random(in: 0...15)
 			let date = Calendar.current.date(byAdding: .day, value: -daysAgo, to: .now) ?? .now
-
 			transactions.append(TransactionResponse(
 				id: UUID(),
+				title: mockTitle(for: category),
 				amount: amount,
 				date: date
 			))
 		}
+		return transactions
+	}
 
-		return transactions.sorted { $0.date > $1.date }
+	private func mockTitle(for type: SpendingCategoryType) -> String {
+		switch type {
+		case .food: ["Selver", "Rimi", "Delice", "Vapiano", "MySushi", "Guru restoran"].randomElement()!
+		case .home: ["Eesti Energia", "IKEA", "Bauhaus", "Telia", "Tele2"].randomElement()!
+		case .transport: ["Alexela", "Circle K", "T-Pilet", "Uber", "Bolt", "Tuul", "Elron"].randomElement()!
+		case .health: ["MyFitness", "Medicum", "Apotheka", "BENU Apteek"].randomElement()!
+		case .other: ["Euronics", "C&C", "Apple", "Didrikson", "Sportland", "North Face", "Piletilevi"].randomElement()!
+		}
 	}
 }

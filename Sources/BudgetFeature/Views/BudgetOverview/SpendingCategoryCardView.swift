@@ -58,7 +58,7 @@ struct SpendingCategoryCardView: View {
 					.font(.system(size: 12, weight: .semibold))
 					.foregroundColor(
 						category.isOverBudget
-						? BudgetFeatureColors.overBudget
+						? BudgetFeatureColors.error
 						: BudgetFeatureColors.primaryText
 					)
 					.monospacedDigit()
@@ -93,7 +93,8 @@ struct SpendingCategoryCardView: View {
 			monthlySpent: 123.45,
 			monthlyBudget: 678.90,
 			progress: 0.18,
-			isOverBudget: false
+			isOverBudget: false,
+			transactions: []
 		),
 		currencyCode: "EUR"
 	)
