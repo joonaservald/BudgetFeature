@@ -84,6 +84,7 @@ struct SpendingCategoryHeaderView: View {
 #Preview {
 	SpendingCategoryHeaderView(
 		category: .init(
+			id: UUID(),
 			type: .food,
 			monthlySpent: 234.56,
 			monthlyBudget: 400.00,

@@ -1,9 +1,7 @@
 import Foundation
 
 struct SpendingCategoryData: Equatable, Identifiable {
-	
-	var id: SpendingCategoryType { type }
-	
+	let id: UUID
 	let type: SpendingCategoryType
 	let monthlySpent: Decimal
 	let monthlyBudget: Decimal

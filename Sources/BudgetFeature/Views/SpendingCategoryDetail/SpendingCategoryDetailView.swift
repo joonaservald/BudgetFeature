@@ -60,6 +60,7 @@ struct SpendingCategoryDetailView: View {
 	NavigationStack {
 		SpendingCategoryDetailView(
 			category: .init(
+				id: UUID(),
 				type: .health,
 				monthlySpent: 333.33,
 				monthlyBudget: 1000.00,

@@ -89,6 +89,7 @@ struct SpendingCategoryCardView: View {
 #Preview {
 	SpendingCategoryCardView(
 		category: .init(
+			id: UUID(),
 			type: .food,
 			monthlySpent: 123.45,
 			monthlyBudget: 678.90,

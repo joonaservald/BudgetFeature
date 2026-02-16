@@ -51,6 +51,7 @@ private extension BudgetOverviewResponse {
 
 		let mappedCategories = categories.map { category in
 			SpendingCategoryData(
+				id: UUID(),
 				type: category.type,
 				monthlySpent: category.monthlySpent,
 				monthlyBudget: category.monthlyBudget,
