@@ -5,7 +5,13 @@ import Observation
 @Observable
 final class BudgetOverviewViewModel {
 
-	public private(set) var viewData: BudgetOverviewData?
+	enum ViewState: Equatable {
+		case loading
+		case loaded(BudgetOverviewData)
+		case error
+	}
+
+	public private(set) var viewState: ViewState = .loading
 
 	@ObservationIgnored private let budgetService: BudgetService
 
@@ -14,7 +20,7 @@ final class BudgetOverviewViewModel {
 	}
 
 	func loadInitialBudgetData() async {
-		guard viewData == nil else { return }
+		guard case .loading = viewState else { return }
 		await fetchBudgetData()
 	}
 
@@ -22,35 +28,50 @@ final class BudgetOverviewViewModel {
 		await fetchBudgetData()
 	}
 
-	private func fetchBudgetData() async {
-		guard let data = try? await budgetService.fetchMonthlyBudget() else { return }
-		let remainingBudget = data.totalBudget - data.totalSpent
-		let progress: Double = data.totalBudget.isZero
-		? 0 : NSDecimalNumber(decimal: data.totalSpent / data.totalBudget).doubleValue
+	func didTapRetry() async {
+		viewState = .loading
+		await fetchBudgetData()
+	}
 
-		let categories = data.categories.map { [weak self] category in
-			return SpendingCategoryData(
+	private func fetchBudgetData() async {
+		do {
+			let response = try await budgetService.fetchMonthlyBudget()
+			viewState = .loaded(response.toOverviewData())
+		} catch {
+			viewState = .error
+		}
+	}
+}
+
+private extension BudgetOverviewResponse {
+
+	func toOverviewData() -> BudgetOverviewData {
+		let progress: Double = totalBudget.isZero
+		? 0 : NSDecimalNumber(decimal: totalSpent / totalBudget).doubleValue
+
+		let mappedCategories = categories.map { category in
+			SpendingCategoryData(
 				type: category.type,
 				monthlySpent: category.monthlySpent,
 				monthlyBudget: category.monthlyBudget,
-				progress: self?.categoryProgress(for: category) ?? 0,
+				progress: categoryProgress(for: category),
 				isOverBudget: category.monthlySpent > category.monthlyBudget,
 				transactions: category.transactions
 			)
 		}
 
-		viewData = BudgetOverviewData(
-			totalBudget: data.totalBudget,
-			totalSpent: data.totalSpent,
-			remaining: remainingBudget,
+		return BudgetOverviewData(
+			totalBudget: totalBudget,
+			totalSpent: totalSpent,
+			remaining: totalBudget - totalSpent,
 			progress: progress,
-			isOverBudget: data.totalSpent > data.totalBudget,
-			currencyCode: data.currencyCode,
-			categories: categories
+			isOverBudget: totalSpent > totalBudget,
+			currencyCode: currencyCode,
+			categories: mappedCategories
 		)
 	}
 
-	private func categoryProgress(for category: SpendingCategoryResponse) -> Double {
+	func categoryProgress(for category: SpendingCategoryResponse) -> Double {
 		category.monthlyBudget.isZero
 		? 0 : NSDecimalNumber(decimal: category.monthlySpent / category.monthlyBudget).doubleValue
 	}

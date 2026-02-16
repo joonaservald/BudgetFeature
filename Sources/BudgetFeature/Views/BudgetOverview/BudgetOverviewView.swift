@@ -7,13 +7,24 @@ public struct BudgetOverviewView: View {
 
 	public var body: some View {
 		NavigationStack {
-			ScrollView {
-				if let displayData = viewModel.viewData {
-					BudgetContentView(data: displayData)
-					.animation(.easeInOut, value: displayData)
+			Group {
+				switch viewModel.viewState {
+				case .loading:
+					ProgressView()
+						.frame(maxWidth: .infinity, maxHeight: .infinity)
+						.background(BudgetFeatureColors.background)
+				case .loaded(let data):
+					ScrollView {
+						BudgetContentView(data: data)
+					}
+					.refreshable { await viewModel.didPullToRefresh() }
+				case .error:
+					BudgetErrorView(onRetry: viewModel.didTapRetry)
+						.frame(maxWidth: .infinity, maxHeight: .infinity)
+						.background(BudgetFeatureColors.background)
 				}
 			}
-			.refreshable { await viewModel.didPullToRefresh() }
+			.animation(.easeInOut, value: viewModel.viewState)
 			.task { await viewModel.loadInitialBudgetData() }
 			.background(BudgetFeatureColors.background.ignoresSafeArea())
 		}
