@@ -1,13 +1,14 @@
 import Foundation
 
-final class BudgetServiceImpl {
+public final class BudgetServiceImpl {
 	private let euroCurrencyIdentifier = "EUR"
-	
+
+	public init() {}
 }
 
 extension BudgetServiceImpl: BudgetService {
 
-	func fetchMonthlyBudget() async throws -> BudgetOverviewResponse {
+	public func fetchMonthlyBudget() async throws -> BudgetOverviewResponse {
 		
 		// Mock 1 second timeout as it was requested in the home task description
 		try await Task.sleep(for: .milliseconds(1000))

@@ -1,9 +1,11 @@
 import SwiftUI
 
 public struct BudgetOverviewView: View {
-	@State private var viewModel = BudgetOverviewViewModel()
+	@State private var viewModel: BudgetOverviewViewModel
 
-	public init() {}
+	public init(budgetService: BudgetService = BudgetServiceImpl()) {
+		self._viewModel = State(initialValue: BudgetOverviewViewModel(budgetService: budgetService))
+	}
 
 	public var body: some View {
 		NavigationStack {
