@@ -13,7 +13,7 @@ public struct BudgetOverviewView: View {
 					ProgressView()
 						.frame(maxWidth: .infinity, maxHeight: .infinity)
 						.background(BudgetFeatureColors.background)
-				case .loaded(let data):
+				case .resolved(let data):
 					ScrollView {
 						BudgetContentView(data: data)
 					}

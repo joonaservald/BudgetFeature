@@ -7,7 +7,7 @@ final class BudgetOverviewViewModel {
 
 	enum ViewState: Equatable {
 		case loading
-		case loaded(BudgetOverviewData)
+		case resolved(BudgetOverviewData)
 		case error
 	}
 
@@ -36,7 +36,7 @@ final class BudgetOverviewViewModel {
 	private func fetchBudgetData() async {
 		do {
 			let response = try await budgetService.fetchMonthlyBudget()
-			viewState = .loaded(response.toOverviewData())
+			viewState = .resolved(response.toOverviewData())
 		} catch {
 			viewState = .error
 		}
