@@ -4,7 +4,28 @@ A SwiftUI feature package that displays budget overview for the current month.
 
 ## How to use / run
 
-// TODO
+The package was made using Xcode 26.2. It requires Swift 6.2 and iOS 17+.
+
+Add package dependency into `Package.swift`:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/joonaservald/BudgetFeature", from: "1.0.0")
+]
+```
+
+Use the public entry view:
+
+```swift
+import SwiftUI
+import BudgetFeature
+
+struct ContentView: View {
+    var body: some View {
+        BudgetOverviewView()
+    }
+}
+```
 
 ## Architecture
 
