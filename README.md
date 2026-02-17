@@ -52,9 +52,9 @@ The solution was introduced with Xcode 26 and I believe is sufficient for the gi
 
 ### Architecture
 
-If this would be developed into a larger feature, then I would first revisit the routing logic and introduce a generic way of routing.
-Real apps and bigger features introduce navigational difficulties that are hard to maintain without it.
-I am personally a huge fan of uber/RIBs although I would implement it with less boilerplate and overhead. But there are great alternatives and anything that is modular, maintainable and allows to separate business logic from view and navigational logic is a winner. Bonus points if the architecture also helps deal with any possible retention loops, lifecycle issues or other memory leak problems.
+If this would be developed into a larger feature, then I would first revisit the routing logic and introduce a generic way of routing. Additionally it would be nice to implement some sort of a factory pattern to be able to build the smaller chunks of the app, and inject dependencies, which also would've been an overkill for this feature. 
+
+I am personally a huge fan of uber/RIBs as it solves all of these issues although I would implement it with less boilerplate and overhea compared to Uber. There are other great alternatives and anything that is modular, maintainable and allows to separate business logic from view and navigational logic with proper dependnecy injection is a winner. Bonus points if the architecture also helps deal with any possible retention loops, lifecycle issues or other memory leak problems.
 
 In bigger projects I also like to use project generation (Tuist, XcodeGen, or similar) where possible. It was not necessary for this task since it is a SPM package.
 
