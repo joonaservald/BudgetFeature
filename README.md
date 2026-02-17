@@ -58,9 +58,20 @@ I am personally a huge fan of uber/RIBs as it solves all of these issues althoug
 
 In bigger projects I also like to use project generation (Tuist, XcodeGen, or similar) where possible. It was not necessary for this task since it is a SPM package.
 
+### User interface
+
+It would be ideal to add or use text styles rather than hardcoded font sizes and weights. Currently this was done to save time and keep the visuals nice but it defeinitely has a hit on maintainability and would not be the approach in a larger feature. 
+
+Additionally, as this is a banking feature, accessibility features would be a bonus. It would be useful to add an `.accessibilityLabel` to the header and categories to read out the budgets at least.
+
 ### Resources
 
 Currently I use an enum to handle the color scheme. Although it supports light and dark mode, in a bigger feature this can get out of hand quite fast. There are third party tools to fix this or the solution could be broken up into smaller bits manually when necessary. For the given task I believe current solution is enough. Given the scope of the task, it might've been a good idea to allow injecting a "theme" into the feature but I think for the task this would have been overengineered.
+
+### Mocking
+
+Currently the mocked data has random UUIDs. This is not a problem when displaying the data but can be a problem problem when animating the changes.
+Ideally, the categories and their data should have static UUIDs and then animations work as intended. This would probably not be a problem if the 
 
 ## Testing
 
