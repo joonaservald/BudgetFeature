@@ -38,7 +38,7 @@ struct BudgetContentView: View {
 
 	var body: some View {
 		VStack(spacing: 20) {
-			Text("budget.overview.title", bundle: .module)
+			Text(.budgetOverviewTitle)
 				.font(.system(size: 20, weight: .bold, design: .rounded))
 				.foregroundStyle(BudgetFeatureColors.primaryText)
 				.frame(maxWidth: .infinity)

@@ -43,10 +43,7 @@ struct SpendingCategoryHeaderView: View {
 						)
 						.monospacedDigit()
 
-					Text(
-						category.isOverBudget ? "title.over" : "title.remaining",
-						bundle: .module
-					)
+					Text(category.isOverBudget ? .titleOver : .titleRemaining)
 					.font(.system(size: 12, weight: .semibold))
 					.foregroundStyle(BudgetFeatureColors.secondaryText)
 				}
@@ -59,7 +56,7 @@ struct SpendingCategoryHeaderView: View {
 						.foregroundStyle(BudgetFeatureColors.primaryText)
 						.monospacedDigit()
 
-					Text("title.budget", bundle: .module)
+					Text(.titleBudget)
 						.font(.system(size: 12, weight: .semibold))
 						.foregroundStyle(BudgetFeatureColors.secondaryText)
 				}

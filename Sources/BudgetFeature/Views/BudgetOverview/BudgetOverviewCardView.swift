@@ -16,14 +16,14 @@ struct BudgetOverviewCardView: View {
 			VStack(alignment: .leading, spacing: 30) {
 				statRow(
 					icon: "chart.bar.fill",
-					label: "title.budget",
+					label: .titleBudget,
 					value: data.totalBudget.formatted(.currency(code: data.currencyCode)),
 					iconColor: BudgetFeatureColors.secondaryText
 				)
 				
 				statRow(
 					icon: "flame.fill",
-					label: "title.spent",
+					label: .titleSpent,
 					value: data.totalSpent.formatted(.currency(code: data.currencyCode)),
 					iconColor: BudgetFeatureColors.accent
 				)
@@ -39,7 +39,7 @@ struct BudgetOverviewCardView: View {
 	
 	private func statRow(
 		icon: String,
-		label: LocalizedStringKey,
+		label: LocalizedStringResource,
 		value: String,
 		iconColor: Color
 	) -> some View {
@@ -48,9 +48,9 @@ struct BudgetOverviewCardView: View {
 				.font(.system(size: 24))
 				.foregroundStyle(iconColor)
 				.frame(width: 36)
-			
+
 			VStack(alignment: .trailing, spacing: 2) {
-				Text(label, bundle: .module)
+				Text(label)
 					.font(.system(size: 10, weight: .semibold))
 					.foregroundStyle(BudgetFeatureColors.secondaryText)
 					.tracking(0.5)

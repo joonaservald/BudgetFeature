@@ -24,7 +24,7 @@ struct SpendingCategoryCardView: View {
 				.foregroundStyle(category.type.accentColor)
 				.frame(width: 32)
 			
-			Text(category.type.displayName, bundle: .module)
+			Text(category.type.displayName)
 				.font(.system(size: 16, weight: .bold))
 				.foregroundStyle(BudgetFeatureColors.primaryText)
 			
@@ -53,7 +53,7 @@ struct SpendingCategoryCardView: View {
 					.monospacedDigit()
 					.contentTransition(.numericText())
 				
-				Text("title.spent", bundle: .module)
+				Text(.titleSpent)
 					.font(.system(size: 12, weight: .semibold))
 					.foregroundStyle(BudgetFeatureColors.secondaryText)
 			}
@@ -66,7 +66,7 @@ struct SpendingCategoryCardView: View {
 					.foregroundStyle(BudgetFeatureColors.primaryText)
 					.monospacedDigit()
 					.contentTransition(.numericText())
-				Text("title.budget", bundle: .module)
+				Text(.titleBudget)
 					.font(.system(size: 12, weight: .semibold))
 					.foregroundStyle(BudgetFeatureColors.secondaryText)
 			}

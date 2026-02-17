@@ -17,14 +17,14 @@ struct SpendingCategoryDetailView: View {
 			.padding()
 		}
 		.background(BudgetFeatureColors.background.ignoresSafeArea())
-		.navigationTitle(Text(category.type.displayName, bundle: .module))
+		.navigationTitle(Text(category.type.displayName))
 		.navigationBarTitleDisplayMode(.inline)
 	}
 
 	private var transactionsCard: some View {
 		VStack(alignment: .leading, spacing: 0) {
 			HStack {
-				Text("category.detail.transactions", bundle: .module)
+				Text(.categoryDetailTransactions)
 					.font(.system(size: 16, weight: .bold))
 					.foregroundStyle(BudgetFeatureColors.primaryText)
 
@@ -38,7 +38,7 @@ struct SpendingCategoryDetailView: View {
 			.padding(.bottom, 12)
 
 			if category.transactions.isEmpty {
-				Text("category.detail.no.transactions", bundle: .module)
+				Text(.categoryDetailNoTransactions)
 					.font(.system(size: 14))
 					.foregroundStyle(BudgetFeatureColors.secondaryText)
 					.frame(maxWidth: .infinity)

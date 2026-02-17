@@ -2,13 +2,13 @@ import SwiftUI
 
 extension SpendingCategoryType {
 
-	var displayName: LocalizedStringKey {
+	var displayName: LocalizedStringResource {
 		switch self {
-		case .food: "category.food"
-		case .home: "category.home"
-		case .transport: "category.transport"
-		case .health: "category.health"
-		case .other: "category.other"
+		case .food: .categoryFood
+		case .home: .categoryHome
+		case .transport: .categoryTransport
+		case .health: .categoryHealth
+		case .other: .categoryOther
 		}
 	}
 

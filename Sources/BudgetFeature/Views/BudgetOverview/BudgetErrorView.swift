@@ -9,11 +9,11 @@ struct BudgetErrorView: View {
 				.font(.system(size: 40))
 				.foregroundStyle(BudgetFeatureColors.secondaryText)
 
-			Text("error.title", bundle: .module)
+			Text(.errorTitle)
 				.font(.system(size: 18, weight: .semibold))
 				.foregroundStyle(BudgetFeatureColors.primaryText)
 
-			Text("error.message", bundle: .module)
+			Text(.errorMessage)
 				.font(.system(size: 14))
 				.foregroundStyle(BudgetFeatureColors.secondaryText)
 				.multilineTextAlignment(.center)
@@ -21,7 +21,7 @@ struct BudgetErrorView: View {
 			Button {
 				Task { await onRetry() }
 			} label: {
-				Text("error.retry", bundle: .module)
+				Text(.errorRetry)
 					.font(.system(size: 16, weight: .semibold))
 					.foregroundStyle(.white)
 					.padding(.horizontal, 32)

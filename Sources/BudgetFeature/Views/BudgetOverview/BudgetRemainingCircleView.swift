@@ -51,7 +51,7 @@ struct BudgetRemainingCircleView: View {
 				.frame(width: 100)
 				.contentTransition(.numericText())
 			
-			Text(isOverBudget ? "budget.circle.over" : "budget.circle.remaining", bundle: .module)
+			Text(isOverBudget ? .budgetCircleOver : .budgetCircleRemaining)
 				.font(.system(size: 11, weight: .bold))
 				.foregroundStyle(BudgetFeatureColors.secondaryText)
 				.lineLimit(1)
