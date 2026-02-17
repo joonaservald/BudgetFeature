@@ -62,3 +62,7 @@ Currently I use an enum to handle the color scheme. Although it supports light a
 
 Uses Swift Testing framework to cover the `BudgetOverviewViewModel` unit tests. 
 `BudgetService` is a protocol and thus allows mock injection.
+
+## Repository
+
+Git commit style is loosely based on the guidelines of [Chris Beams](https://chris.beams.io/posts/git-commit/).
