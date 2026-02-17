@@ -14,6 +14,7 @@ struct ProgressBarView: View {
 				Capsule()
 					.fill(tint)
 					.frame(width: geometry.size.width * min(progress, 1.0), height: 6)
+					.animation(.easeInOut, value: progress)
 			}
 		}
 		.frame(height: 6)
