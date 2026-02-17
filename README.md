@@ -2,6 +2,10 @@
 
 A SwiftUI feature package that displays budget overview for the current month.
 
+<img height="600" alt="image" src="https://github.com/user-attachments/assets/bfe8d2c7-5dc7-4e30-a209-97c3c48036d2" /><img height="600" alt="image" src="https://github.com/user-attachments/assets/92da1518-2078-4d62-9371-e66278573cc6" />
+
+
+
 ## How to use / run
 
 The package was made using Xcode 26.2. It requires Swift 6.2 and iOS 17+.
